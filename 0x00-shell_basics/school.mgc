@@ -2,3 +2,4 @@
 echo '0 strig SCHOOL School data file' > school.magic
 file -C -m school.magic
 rm school.magic
+echo "Magic file school.mgc created and compiled."
