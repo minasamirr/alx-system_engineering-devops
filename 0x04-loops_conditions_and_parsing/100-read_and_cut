@@ -1,8 +1,5 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
-# Display the content of /etc/passwd with specific fields
-
-while IFS=':' read -r username _ userid _ _ homedir _
-do
-    echo "$username:$userid:$homedir"
+while IFS=':' read -r username _ uid _ _ home_directory _; do
+    echo "$username:$uid:$home_directory"
 done < /etc/passwd
