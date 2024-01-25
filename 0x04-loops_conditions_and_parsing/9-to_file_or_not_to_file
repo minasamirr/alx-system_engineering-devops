@@ -8,12 +8,12 @@ if [ -e "$file_path" ]; then
 
     if [ -s "$file_path" ]; then
         echo "$file_path file is not empty"
-
-        if [ -f "$file_path" ]; then
-            echo "$file_path is a regular file"
-        fi
     else
         echo "$file_path file is empty"
+    fi
+ 
+    if [ -f "$file_path" ]; then
+            echo "$file_path is a regular file"
     fi
 else
     echo "$file_path file does not exist"
