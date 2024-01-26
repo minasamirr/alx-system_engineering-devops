@@ -3,9 +3,10 @@
 # Description: Displays "To infinity and beyond" indefinitely with a sleep 2 in between each iteration.
 #              Prints "I am invincible!!!" when receiving a SIGTERM signal.
 
-while true
-do
-  echo "To infinity and beyond"
-  sleep 2
-  trap 'echo "I am invincible"' SIGTERM
-done
+pid=$(pgrep -f "7-highlander")
+if [ -n "$pid" ]; then
+    echo "Terminating process..."
+    kill -s SIGTERM "$pid"
+else
+    echo "Process not found"
+fi
