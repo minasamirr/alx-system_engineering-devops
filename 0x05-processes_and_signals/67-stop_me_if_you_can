@@ -1,6 +1,4 @@
 #!/usr/bin/env bash
-# Script: 67-stop_me_if_you_can
 # Description: Kills the 7-highlander process without using kill or killall.
-# Find and terminate the 7-highlander process
 
-pkill -f 4-to_infinity_and_beyond
+pkill -f 7-highlander
