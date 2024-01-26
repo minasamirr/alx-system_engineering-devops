@@ -2,3 +2,5 @@
 
 # Show lines containing the word 'bash' and display the PID
 ps aux | grep bash | grep -v grep
+
+# shellcheck disable=SC2009
