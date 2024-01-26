@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+# Script: 4-to_infinity_and_beyond
+# Description: Displays the phrase "To infinity and beyond" indefinitely.
+#              Sleeps for 2 seconds between each iteration.
+
+while true; do
+    echo "To infinity and beyond"
+    sleep 2
+done
