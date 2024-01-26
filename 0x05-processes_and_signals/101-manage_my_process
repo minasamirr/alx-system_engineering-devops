@@ -1,0 +1,43 @@
+#!/usr/bin/env bash
+# Script: 101-manage_my_process
+# Description: Manages the manage_my_process script (start, stop, restart)
+
+PID_FILE="/var/run/my_process.pid"
+SCRIPT_PATH="./manage_my_process"
+
+case "$1" in
+    start)
+        $SCRIPT_PATH &
+        echo $! > "$PID_FILE"
+        echo "manage_my_process started"
+        ;;
+    stop)
+        if [ -e "$PID_FILE" ]; then
+            pid=$(cat "$PID_FILE")
+            kill "$pid" && rm "$PID_FILE"
+            echo "manage_my_process stopped"
+        else
+            echo "manage_my_process is not running"
+        fi
+        ;;
+    restart)
+        if [ -e "$PID_FILE" ]; then
+            pid=$(cat "$PID_FILE")
+            kill "$pid" && rm "$PID_FILE"
+            $SCRIPT_PATH &
+            echo $! > "$PID_FILE"
+            echo "manage_my_process restarted"
+        else
+            echo "manage_my_process is not running, starting..."
+            $SCRIPT_PATH &
+            echo $! > "$PID_FILE"
+            echo "manage_my_process started"
+        fi
+        ;;
+    *)
+        echo "Usage: $0 {start|stop|restart}"
+        exit 1
+        ;;
+esac
+
+exit 0
