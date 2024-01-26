@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+# Script: 8-beheaded_process
+# Description: Kills the process 7-highlander without using kill or killall.
+# Find and terminate the 7-highlander process
+
+pid=$(pgrep -f "7-highlander")
+if [ -n "$pid" ]; then
+    echo "Killing process..."
+    kill "$pid"
+else
+    echo "Process not found"
+fi
