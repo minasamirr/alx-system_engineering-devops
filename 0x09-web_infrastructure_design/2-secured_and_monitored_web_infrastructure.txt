@@ -1,0 +1,43 @@
+    User Accesses Website:
+        A user types www.foobar.com into their web browser.
+
+    Domain Name:
+        The domain name (foobar.com) remains the same, acting as a human-readable alias for the server's IP addresses.
+
+    DNS Records:
+        Similar to previous designs, DNS records resolve www.foobar.com to the IP address(es) of the load balancer.
+
+    Servers:
+        Three servers are used:
+            Server 1: Web Server (Nginx)
+            Server 2: Application Server
+            Server 3: Database Server (MySQL)
+
+    Firewalls:
+        Three firewalls are added to enhance security by controlling incoming and outgoing network traffic. Each firewall is placed between the internet and each server to filter and block unauthorized access attempts.
+
+    SSL Certificate (HTTPS):
+        An SSL certificate is installed on the load balancer to enable HTTPS encryption, securing communication between the users' browsers and the web infrastructure. HTTPS encrypts data in transit, preventing interception or manipulation by unauthorized parties.
+
+    Monitoring Clients:
+        Three monitoring clients (data collectors) are added to each server to gather performance metrics, logs, and other data for analysis and monitoring.
+        Monitoring is essential for detecting and responding to performance issues, security threats, and resource constraints in real-time.
+
+    Monitoring Tool:
+        A monitoring tool such as Sumo Logic or other monitoring services is used to collect, analyze, and visualize the data collected by the monitoring clients.
+        The monitoring tool provides insights into server performance, traffic patterns, security events, and other relevant metrics.
+
+    Traffic Served over HTTPS:
+        HTTPS encrypts data in transit, protecting sensitive information (e.g., login credentials, payment details) from eavesdropping or tampering.
+        Serving traffic over HTTPS ensures confidentiality, integrity, and authenticity of the communication between users and the website.
+
+Issues with this Infrastructure:
+
+    Terminating SSL at Load Balancer Level:
+        Terminating SSL at the load balancer means that decrypted traffic is forwarded to backend servers. If the communication between the load balancer and backend servers is not secure, it exposes the data to potential risks.
+
+    Single MySQL Server for Writes:
+        Having only one MySQL server capable of accepting write operations represents a single point of failure. If the server fails, it can lead to downtime or data loss.
+
+    Uniformity in Server Components:
+        Having servers with identical components (database, web server, application server) might lead to issues such as lack of diversity in the event of software vulnerabilities or configuration errors affecting all servers simultaneously. Introducing diversity in server components can enhance resilience and reduce the impact of potential failures.

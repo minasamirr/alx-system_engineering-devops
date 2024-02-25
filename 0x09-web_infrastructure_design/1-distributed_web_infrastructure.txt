@@ -1,0 +1,49 @@
+    User Accesses Website:
+        A user types www.foobar.com into their web browser.
+
+    Domain Name:
+        The domain name (foobar.com) remains the same, acting as a human-readable alias for the server's IP addresses.
+
+    DNS Records:
+        Similar to the previous design, DNS records resolve www.foobar.com to the IP address(es) of the load balancer.
+
+    Servers:
+        Three servers are used:
+            Server 1: Web Server (Nginx)
+            Server 2: Application Server
+            Server 3: Database Server (MySQL)
+
+    Web Server (Nginx):
+        Nginx continues to serve as the web server, handling incoming HTTP requests and serving static content or routing dynamic requests to the application server.
+
+    Application Server:
+        The application server executes server-side code and processes dynamic content requests. It communicates with the web server to generate responses to user requests.
+
+    Application Files:
+        The application files contain the code base (e.g., PHP files, Python scripts) and reside on the application server.
+
+    Load Balancer (HAProxy):
+        A load balancer (HAProxy) is added to distribute incoming traffic across multiple servers, ensuring high availability and improving performance. It balances the load using a distribution algorithm.
+
+    Distribution Algorithm:
+        The load balancer is configured with a Round Robin distribution algorithm, which routes each new request to the next server in line, distributing the workload evenly.
+
+    Active-Active Setup:
+        The load balancer enables an Active-Active setup, where all servers are actively handling incoming requests simultaneously. This setup provides better resource utilization and redundancy compared to Active-Passive setups.
+
+    Database Primary-Replica Cluster:
+        The database server (MySQL) is set up as a Primary-Replica (Master-Slave) cluster.
+        The Primary node (Master) handles write operations and replicates data changes to the Replica nodes (Slaves).
+        The Replica nodes are read-only copies of the data and can handle read operations, offloading read traffic from the Primary node.
+
+Issues with this Infrastructure:
+
+    Single Points of Failure (SPOF):
+        The load balancer and database server can still represent SPOFs. If either fails, it can disrupt website availability or performance.
+
+    Security Issues:
+        Lack of firewall configuration leaves the infrastructure vulnerable to unauthorized access or attacks.
+        Lack of HTTPS encryption exposes user data to interception or manipulation during transmission.
+
+    No Monitoring:
+        Without monitoring tools in place, it's challenging to detect and respond to performance issues, security threats, or resource constraints in real-time.

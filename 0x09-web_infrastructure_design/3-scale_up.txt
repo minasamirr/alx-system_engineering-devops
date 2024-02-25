@@ -1,0 +1,25 @@
+Components:
+
+    Web Server:
+        The web server (e.g., Nginx, Apache) is responsible for handling HTTP requests from clients (web browsers) and serving static content such as HTML, CSS, and JavaScript files. It acts as the entry point for incoming web traffic.
+
+    Application Server:
+        The application server executes server-side code (e.g., PHP, Python, Node.js) and generates dynamic content in response to client requests. It communicates with the web server to process requests and serves dynamic content.
+
+    Database Server:
+        The database server (e.g., MySQL, PostgreSQL) stores and manages the website's data, including user information, content, and other application data. It provides access to data for the application server to retrieve and manipulate as needed.
+
+    Load Balancer (HAProxy):
+        The load balancer (HAProxy) distributes incoming traffic across multiple servers to ensure scalability, high availability, and optimal performance. It improves fault tolerance by routing requests to healthy servers and enables horizontal scaling of the infrastructure.
+
+Design Rationale:
+
+    Distributed Components: Splitting the components (web server, application server, database) onto their own servers allows for better resource management, isolation, and scalability. Each component can be optimized independently, and failures in one component are less likely to impact the others.
+
+    Load Balancer: Adding a load balancer ensures efficient distribution of incoming traffic across multiple servers. It prevents any single server from becoming overwhelmed with requests and improves the overall responsiveness and reliability of the website.
+
+    High Availability: Configuring the load balancer as a cluster with redundancy ensures high availability. If one load balancer instance fails, the other instance(s) can continue to handle incoming traffic without interruption, minimizing downtime and ensuring continuous service availability.
+
+Conclusion:
+
+This infrastructure design provides a scalable, resilient, and high-performance environment for hosting www.foobar.com. By distributing components across multiple servers and utilizing a load balancer for traffic management, the infrastructure can handle increased load, maintain availability, and deliver a seamless user experience.
