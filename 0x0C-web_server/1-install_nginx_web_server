@@ -1,22 +1,16 @@
 #!/usr/bin/env bash
 # Update package index
-sudo apt-get update -y -qq
-
 # Install nginx
-sudo apt-get install nginx -y
-
 # Start nginx
-sudo service nginx start
-
 # allowing nginx on firewall
-sudo ufw allow 'Nginx HTTP'
-
 # Give the user ownership to website files for easy editing
+# Creating new index
+# Restarting nginx
+sudo apt-get update -y -qq
+sudo apt-get install nginx -y
+sudo service nginx start
+sudo ufw allow 'Nginx HTTP'
 sudo chown -R "$USER":"$USER" /var/www/html
 sudo chmod -R 755 /var/www
-
-# Creating new index
 echo -e "Hello World!" | dd status=none of=/var/www/html/index.nginx-debian.html
-
-# Restarting nginx
 sudo service nginx restart
