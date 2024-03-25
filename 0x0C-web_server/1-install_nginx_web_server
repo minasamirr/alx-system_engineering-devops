@@ -1,11 +1,7 @@
 #!/usr/bin/env bash
-# Update package index
-# Install nginx
-# Start nginx
-# allowing nginx on firewall
-# Give the user ownership to website files for easy editing
-# Creating new index
-# Restarting nginx
+# Configures a new ubuntu machine by installing
+# Nginx where it should be listening on port 80
+# Serve a page that would return a Hello World string
 
 sudo apt-get update -y -qq && \
 		 sudo apt-get install nginx -y
