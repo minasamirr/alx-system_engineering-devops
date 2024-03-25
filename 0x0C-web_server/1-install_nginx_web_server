@@ -1,15 +1,21 @@
 #!/usr/bin/env bash
 
 # Update package index
-apt-get -y update
+apt-get update -y
 
 # Install nginx
-apt-get -y install nginx
-
-# Nginx should be listening
-ufw allow 'Nginx HTTP'
+apt-get install nginx -y
 
 # Create HTML file with "Hello World!"
-echo "Hello World!" > /var/www/html/index.html
+echo "Hello World!" > /usr/share/nginx/html/index.html
 
-service nginx start
+# Check if nginx is running, if not start it
+if ! ps aux | grep -q '[n]ginx'; then
+	    /usr/sbin/nginx
+fi
+
+# Ensure nginx is listening on port 80
+sed -i 's/80 default_server;/80;/g' /etc/nginx/sites-available/default
+
+# Restart nginx
+kill -s HUP $(pgrep nginx)
