@@ -1,21 +1,23 @@
 #!/usr/bin/env bash
 
 # Update package index
-apt-get update -y
+sudo apt-get update -y -qq
 
 # Install nginx
-apt-get install nginx -y
+sudo apt-get install nginx -y
 
-# Create HTML file with "Hello World!"
-echo "Hello World!" > /usr/share/nginx/html/index.html
+# Start nginx
+sudo service nginx start
 
-# Check if nginx is running, if not start it
-if ! ps aux | grep -q '[n]ginx'; then
-	    /usr/sbin/nginx
-fi
+# allowing nginx on firewall
+sudo ufw allow 'Nginx HTTP'
 
-# Ensure nginx is listening on port 80
-sed -i 's/80 default_server;/80;/g' /etc/nginx/sites-available/default
+# Give the user ownership to website files for easy editing
+sudo chown -R "$USER":"$USER" /var/www/html
+sudo chmod -R 755 /var/www
 
-# Restart nginx
-kill -s HUP $(pgrep nginx)
+# Creating new index
+echo 'Hello World!' > /var/www/html/index.html
+
+# Restarting nginx
+sudo service nginx restart
