@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+
+# Update package index
+apt-get -y update
+
+# Install nginx
+apt-get -y install nginx
+
+# Nginx should be listening
+ufw allow 'Nginx HTTP'
+
+# Create HTML file with "Hello World!"
+echo "Hello World!" > /var/www/html/index.html
+
+service nginx start
