@@ -1,18 +1,47 @@
 #!/usr/bin/env bash
-# The page must return an HTTP 404 error code
-# The page must contain the string Ceci n'est pas une page
-# Using what you did with 3-redirection,
-# write 4-not_found_page_404 so that it configures a brand
-# new Ubuntu machine to the requirements asked in this task
 
+# Update package lists and install Nginx
 sudo apt-get -y update
 sudo apt-get -y install nginx
+
+# Start Nginx service
 sudo service nginx start
+
+# Allow HTTP traffic through UFW firewall
 sudo ufw allow 'Nginx HTTP'
+
+# Change ownership and permissions of web root directory
 sudo chown -R "$USER":"$USER" /var/www/html
 sudo chmod -R 755 /var/www
+
 echo -e "Hello World!" | dd status=none of=/var/www/html/index.nginx-debian.html
 sudo sed -i "42i \\\tlocation /redirect_me {\n\t\t return 301 https://www.youtube.com/watch?v=QH2-TGUlwu4;\n\t}\n" /etc/nginx/sites-available/default
-echo "Ceci n'est pas une page" | tee /var/www/html/error_404.html
-sudo sed -i "/server_name _;/a error_page 404 /404.html;\nlocation = /404.html {\nroot /var/www/html;\ninternal;\n}" /etc/nginx/sites-available/default
+
+# Create custom 404 page with the required string
+echo "Ceci n'est pas une page" | sudo tee /var/www/html/error_404.html
+
+# Configure Nginx to use the custom 404 page
+sudo bash -c 'cat > /etc/nginx/sites-available/default' <<EOF
+server {
+    listen 80 default_server;
+    listen [::]:80 default_server;
+
+    root /var/www/html;
+    index index.html index.htm index.nginx-debian.html;
+
+    server_name _;
+
+    location / {
+        try_files \$uri \$uri/ =404;
+    }
+
+    error_page 404 /error_404.html;
+    location = /error_404.html {
+        internal;
+        root /var/www/html;
+    }
+}
+EOF
+
+# Restart Nginx to apply changes
 sudo service nginx restart
